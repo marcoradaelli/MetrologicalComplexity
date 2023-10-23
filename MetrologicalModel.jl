@@ -1,5 +1,5 @@
 function CreateMetrologicalModel(name)
-    return Dict("Name" => name, "MetrologicalStates" => [], "Edges" => [])
+    return Dict("Name" => name, "MetrologicalStates" => [], "Edges" => [], "CurrentStateName" => nothing, "CurrentStateIndex" => nothing)
 end
 
 function AddMetrologicalState(metrological_model, name)
@@ -34,7 +34,8 @@ end
 
 function Initialise(metrological_model, initial_state)
     current_state_index = findfirst(item -> item == initial_state, metrological_model["MetrologicalStates"])
-    merge!(metrological_model, Dict("CurrentStateName" => initial_state, "CurrentStateIndex" => current_state_index))
+    metrological_model["CurrentStateName"] = initial_state
+    metrological_model["CurrentStateIndex"] = current_state_index
 
     return metrological_model
 end

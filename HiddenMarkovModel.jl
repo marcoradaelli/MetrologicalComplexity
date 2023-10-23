@@ -1,7 +1,7 @@
 using StatsBase
 
 function CreateHMM(name)
-    return Dict("Name" => name, "States" => [], "Edges" => [])
+    return Dict("Name" => name, "States" => [], "Edges" => [], "CurrentStateName" => nothing, "CurrentStateIndex" => nothing)
 end
 
 function AddStateHMM(HMM, name)
@@ -32,7 +32,8 @@ end
 
 function InitialiseHMM(HMM, initial_state)
     current_state_index = findfirst(item -> item == initial_state, HMM["States"])
-    merge!(HMM, Dict("CurrentStateName" => initial_state, "CurrentStateIndex" => current_state_index))
+    HMM["CurrentStateName"] = initial_state
+    HMM["CurrentStateIndex"] = current_state_index
 
     return HMM
 end
